@@ -1,0 +1,33 @@
+$primary-color: #5F1D44;
+$secondary-color: #FFFBDA;
+
+.bg-primary, .btn-prime {
+    background-color: $primary-color !important;
+    color: white;
+}
+.bg-secondary, .btn-second {
+    background-color: $secondary-color !important;
+    color: black;
+}
+.text-primary {
+    color: $primary-color !important;
+}
+.text-secondary {
+    color: $secondary-color !important;
+}
+.mt-lg-7 {
+    margin-top: 7em;
+}
+
+.btn-prime:hover {
+    background-color: #41152f;
+}
+.btn-second:hover {
+    background-color: #d6ce89;
+}
+
+@media screen and (max-width: 1000px) {
+    .mt-lg-7 {
+        margin-top: 2em;
+    }
+}
