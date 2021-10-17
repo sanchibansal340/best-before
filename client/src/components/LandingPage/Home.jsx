@@ -1,7 +1,7 @@
 import React from 'react';
 import Slide from 'react-reveal/Slide';
-import schedule from '../assets/images/schedule.png';
-import '../assets/styles/main.scss';
+import schedule from '../../assets/images/schedule.png';
+import '../../assets/styles/main.scss';
 
 function Home() {
     return (

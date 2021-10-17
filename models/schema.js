@@ -29,10 +29,13 @@ const userSchema = new Schema({
       type: Date,
       default: Date.now
     },
-    items: [itemSchema]
-  });
+    items: [{
+      type: Schema.Types.ObjectId, 
+      ref: 'Item'
+    }]
+});
 
-// model name should be singular of the collection name where you want to store it
-module.exports = { 
-  User: mongoose.model('User', userSchema)
-};
+const Item = mongoose.model('Item', itemSchema);
+const User = mongoose.model('User', userSchema);
+
+module.exports = { User, Item };

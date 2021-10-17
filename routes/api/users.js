@@ -49,17 +49,16 @@ router.post("/register", (req, res) => {
 
 // login endpoint
 router.post("/login", (req, res) => {
-    
-  // Form validation
-  const { errors, isValid } = validateLoginInput(req.body);
+    // Form validation
+    const { errors, isValid } = validateLoginInput(req.body);
   
-  // Check validation
+    // Check validation
     if (!isValid) {
       return res.status(400).json(errors);
     }
   
-  const email = req.body.email;  
-  const password = req.body.password;
+    const email = req.body.email;  
+    const password = req.body.password;
   
     // Find user by email
     User.findOne({ email }).then(user => {
@@ -73,18 +72,10 @@ router.post("/login", (req, res) => {
         if (isMatch) {
           // User matched
           // Create JWT Payload
-          const payload = {
-            id: user.id,
-            name: user.name
-          };
+          const payload = { id: user._id, email: user.email };
   
           // Sign token
-          jwt.sign(
-            payload,
-            keys.secretOrKey,
-            {
-              expiresIn: 31556926 // 1 year in seconds
-            },
+          jwt.sign(payload, keys.secretOrKey, { expiresIn: 31556926 },
             (err, token) => {
               res.json({
                 success: true,
@@ -93,9 +84,7 @@ router.post("/login", (req, res) => {
             }
           );
         } else {
-          return res
-            .status(400)
-            .json({ passwordincorrect: "Password incorrect" });
+          return res.status(400).json({ passwordIncorrect: "Password incorrect" });
         }
       });
     });

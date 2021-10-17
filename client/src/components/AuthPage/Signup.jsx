@@ -1,12 +1,43 @@
-import React, { useState } from 'react';
-import { Link } from "react-router-dom";
-import '../assets/styles/main.scss';
+import React, { useContext, useState, useEffect } from 'react';
+import { Link, useHistory } from "react-router-dom";
+import '../../assets/styles/main.scss';
+import { AuthContext } from '../Context/AuthContext';
 
 function Login() {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [password2, setPassword2] = useState("");
+    const [error, setError] = useState({});
+    let history = useHistory();
+
+    const { isAuthenticated } = useContext(AuthContext);
+
+    useEffect(() => {
+        if(isAuthenticated)
+            history.push('/dashboard');
+    }, []);
+
+    const onSubmit = async(e) => {
+        e.preventDefault();
+        
+        const response = await fetch('http://localhost:5000/api/users/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name, email, password, password2
+            }),
+        })
+        const data = await response.json();
+        if(!response.ok) {
+            setError(data);
+        }
+        else {
+            history.push("/login");
+        }
+    };
 
     return (
         <main className="Login container mt-lg-4 py-3">
@@ -19,7 +50,7 @@ function Login() {
                 </section>
                 <h4 className="text-primary">Sign Up</h4>
             </header>
-            <form>
+            <form onSubmit={onSubmit}>
                 <div className="mb-3">
                     <label className="form-label">
                         Name
@@ -29,6 +60,9 @@ function Login() {
                             onChange={(e) => setName(e.target.value)}
                             className="form-control" 
                         />
+                        {error.name ? (
+                            <small className="text-danger fw-bold">{error.name}</small>
+                        ) : ""}
                     </label>
                 </div>
                 <div className="mb-3">
@@ -40,6 +74,9 @@ function Login() {
                             onChange={(e) => setEmail(e.target.value)}
                             className="form-control" 
                         />
+                        {error.email ? (
+                            <small className="text-danger fw-bold">{error.email}</small>
+                        ) : ""}
                     </label>
                 </div>
                 <div className="mb-3">
@@ -51,6 +88,9 @@ function Login() {
                             onChange={(e) => setPassword(e.target.value)}
                             className="form-control" 
                         />
+                        {error.password ? (
+                            <small className="text-danger fw-bold">{error.password}</small>
+                        ) : ""}
                     </label>
                 </div>
                 <div className="mb-3">
@@ -62,6 +102,9 @@ function Login() {
                             onChange={(e) => setPassword2(e.target.value)}
                             className="form-control" 
                         />
+                        {error.password2 ? (
+                            <small className="text-danger fw-bold">{error.password2}</small>
+                        ) : ""}
                     </label>
                 </div>
                 <button type="submit" 
