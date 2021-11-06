@@ -9,7 +9,7 @@ const validateRegisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
 
 // Load User model
-const User = require("../../models/schema").User;
+const { User } = require("../../models/schema");
 
 
 // Register endpoint
@@ -64,7 +64,7 @@ router.post("/login", (req, res) => {
     User.findOne({ email }).then(user => {
       // Check if user exists
       if (!user) {
-        return res.status(404).json({ emailnotfound: "Email not found" });
+        return res.status(404).json({ emailNotFound: "Email not found" });
       }
   
       // Check password
@@ -73,13 +73,15 @@ router.post("/login", (req, res) => {
           // User matched
           // Create JWT Payload
           const payload = { id: user._id, email: user.email };
+          const {name, email, items} = user;
   
           // Sign token
           jwt.sign(payload, keys.secretOrKey, { expiresIn: 31556926 },
             (err, token) => {
               res.json({
                 success: true,
-                token: "Bearer " + token
+                token: "Bearer " + token,
+                user: {name, email, items}
               });
             }
           );

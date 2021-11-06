@@ -16,7 +16,14 @@ function Login() {
     useEffect(() => {
         if(isAuthenticated)
             history.push('/dashboard');
-    }, []);
+    }, [isAuthenticated]);
+
+    const resetForm = () => {
+        setName("");
+        setEmail("");
+        setPassword("");
+        setPassword2("");
+    }
 
     const onSubmit = async(e) => {
         e.preventDefault();
@@ -30,6 +37,9 @@ function Login() {
                 name, email, password, password2
             }),
         })
+
+        resetForm();
+
         const data = await response.json();
         if(!response.ok) {
             setError(data);

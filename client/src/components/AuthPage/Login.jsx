@@ -1,6 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { Link, useHistory } from "react-router-dom";
-import jwt_decode from "jwt-decode";
 import '../../assets/styles/main.scss';
 import { AuthContext } from '../Context/AuthContext';
 
@@ -13,9 +12,13 @@ function Login() {
     const { isAuthenticated, setIsAuthenticated, setUser } = useContext(AuthContext);
 
     useEffect(() => {
-        if(isAuthenticated)
-            history.push('/dashboard');
-    }, []);
+        if(isAuthenticated) history.push('/dashboard');
+    }, [isAuthenticated]);
+
+    const resetForm = () => {
+        setEmail("");
+        setPassword("");
+    }
 
     const onSubmit = async(e) => {
         e.preventDefault();
@@ -29,16 +32,21 @@ function Login() {
                 email, password
             }),
         })
+
+        resetForm();
+
         const data = await response.json();
         if(!response.ok) {
-            console.log(data);
             setError(data);
         }
         else {
+            const { token, user } = data;
+            localStorage.setItem('token', token);
+            localStorage.setItem('user', JSON.stringify(user));
+
             setIsAuthenticated(true);
-            const { token } = data;
-            const decoded = jwt_decode(token);
-            setUser(decoded);
+            setUser(user);
+
             history.push("/dashboard");
         }
     };
@@ -65,13 +73,14 @@ function Login() {
                             onChange={(e) => setEmail(e.target.value)}
                             className="form-control" 
                         />
-                        {error.email ? (
-                            <small className="text-danger fw-bold">{error.email}</small>
+                        {(error.email || error.emailNotFound) ? (
+                            <small className="text-danger fw-bold">
+                                {error.email}
+                                <br />
+                                {error.emailNotFound}
+                            </small>
                         ) : ""}
                     </label>
-                    <div className="form-text">
-                        We'll never share your email with anyone else.
-                    </div>
                 </div>
                 <div className="mb-3">
                     <label className="form-label">
@@ -82,8 +91,12 @@ function Login() {
                             onChange={(e) => setPassword(e.target.value)}
                             className="form-control" 
                         />
-                        {error.password ? (
-                            <small className="text-danger fw-bold">{error.password}</small>
+                        {(error.password || error.passwordIncorrect) ? (
+                            <small className="text-danger fw-bold">
+                                {error.password}
+                                <br />
+                                {error.passwordIncorrect}
+                            </small>
                         ) : ""}
                     </label>
                 </div>

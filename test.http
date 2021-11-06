@@ -15,3 +15,20 @@ content-type: application/x-www-form-urlencoded
 
 email=test4@test.com
 &password=test@1234
+
+##################################################
+
+POST http://localhost:5000/api/items/create HTTP/1.1
+Content-type: application/json
+Authorization: Bearer
+
+{
+    "itemName": "abcd",
+    "expDate": "2021-11-29"
+}
+
+################################################
+
+GET http://localhost:5000/api/items/ HTTP/1.1
+Content-type: application/json
+Authorization: Bearer 

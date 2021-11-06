@@ -1,16 +1,17 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+require('dotenv').config();
 
 const itemSchema = new Schema({
-  name: {
+  itemName: {
     type: String,
     required: true
   },
-  expiryDate: {
+  expDate: {
     type: Date,
     required: true
   }
-})
+});
 
 const userSchema = new Schema({
     name: {

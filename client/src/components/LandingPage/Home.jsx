@@ -9,7 +9,7 @@ function Home() {
            <section className="row">
                {/* Left col */}
                <figure className="col-lg-6 bg-secondary ps-5 mt-lg-7">
-                <figcaption className="mx-auto">
+                <figcaption>
                     <h4 className="fs-2 text-primary">
                         Keep Track
                     </h4>

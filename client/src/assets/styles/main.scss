@@ -1,6 +1,7 @@
 $primary-color: #5F1D44;
 $secondary-color: #FFFBDA;
 
+// primary & secondary buttons, text & background colors
 .bg-primary, .btn-prime {
     background-color: $primary-color !important;
     color: white;
@@ -15,15 +16,20 @@ $secondary-color: #FFFBDA;
 .text-secondary {
     color: $secondary-color !important;
 }
-.mt-lg-7 {
-    margin-top: 7em;
-}
-
 .btn-prime:hover {
     background-color: #41152f;
 }
 .btn-second:hover {
     background-color: #d6ce89;
+}
+
+// font-size medium (a bit bigger than 16px)
+.fs-md {
+    font-size: 1.2rem;
+}
+
+.mt-lg-7 {
+    margin-top: 7em;
 }
 
 @media screen and (max-width: 1000px) {

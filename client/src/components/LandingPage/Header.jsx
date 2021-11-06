@@ -9,19 +9,18 @@ function Header() {
 
     const logoutUser = () => {
         setIsAuthenticated(false);
+        localStorage.clear();
         history.push("/login");
     }
 
     return (
-        <nav className="Header container-fluid py-3 ps-4">
-            <section className="col-lg-6">
-                <h3 className="fst-italic">best before</h3>
-                {isAuthenticated ? (
-                    <button onClick={logoutUser} className="btn btn-second">
-                        Log Out
-                    </button>
-                ) : null }
-            </section>
+        <nav className="Header navbar navbar-light container py-3 ps-4">
+            <h3 className="fst-italic">best before</h3>
+            {isAuthenticated ? (
+                <button onClick={logoutUser} type="reset" className="btn btn-prime">
+                    Log Out
+                </button>
+            ) : null }
         </nav>
     )
 }

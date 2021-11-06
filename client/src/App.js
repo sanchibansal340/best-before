@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { Header, Landing, Signup, Login, Dashboard, PrivateRoute } from "./components";
+import { Header, Landing, Signup, Login, Dashboard, AddItem, PrivateRoute } from "./components";
 import './App.css';
 import AuthContextProvider from "./components/Context/AuthContext";
 
@@ -15,6 +15,9 @@ function App() {
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/signup" component={Signup} />
                 <PrivateRoute exact path="/dashboard" component={Dashboard} />
+
+                {/* Todo: Make addItem route private */}
+                <Route exact path="/addItem" component={AddItem} />
               </Switch>
             </AuthContextProvider>
           </div>

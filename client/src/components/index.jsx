@@ -3,4 +3,5 @@ export { default as Landing } from './LandingPage/Landing';
 export { default as Login } from './AuthPage/Login';
 export { default as Signup } from './AuthPage/Signup';
 export { default as PrivateRoute } from './PrivateRoute';
-export { default as Dashboard } from './Dasboard';
+export { default as Dashboard } from './Dashboard/Dashboard';
+export { default as AddItem } from './Dashboard/AddItem';

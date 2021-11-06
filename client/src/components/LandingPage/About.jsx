@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import '../../assets/styles/main.scss';
 
 function About() {
     return (
@@ -7,16 +8,19 @@ function About() {
                 About Us
             </h4>
             <article>
-                <p>
+                <p className="fs-md">
                     As our lives have become increasingly fast-paced, we tend 
                     to forget small things like expiration dates of medicines. 
+                    <br />
                     But items like medicines can be required on urgent basis 
                     and expired medicines can be an inconvenience. 
                 </p>
 
                 <section className="ps-3">
-                    <h5>How does Best Before help?</h5>
-                    <ul>
+                    <h5 className="text-primary">
+                        How does Best Before help?
+                    </h5>
+                    <ul className="fs-md">
                         <li>
                             Add items with their name and expiry date.
                         </li>
