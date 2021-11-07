@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory, Link } from "react-router-dom";
 import '../../assets/styles/main.scss';
-import ShowToast from '../../utils/ShowToast';
 
 function AddItem() {
     const [itemName, setItemName] = useState("");
@@ -37,7 +36,6 @@ function AddItem() {
             setError(data);
         }
         else {
-            <ShowToast message={data} />
             history.push('/dashboard');
             setError({});
         }

@@ -6,6 +6,18 @@ const users = require("./routes/api/users");
 const items = require("./routes/api/items");
 const app = express();
 
+const scheduler = require("./scheduler");
+
+// const CronJob = require('cron').CronJob;
+// const moment = require('moment');  
+// const notification = require('./workers/notifications');
+
+// const schedulerTimer = new CronJob('30 2 * * *', function() {
+//         console.log('Running Send Notifications Worker ' + new Date().toDateString());
+//         notification.run();
+//       }, null, true, '');
+// schedulerTimer.start();
+
 // CORS middleware
 app.use(cors());
 
@@ -28,6 +40,9 @@ app.use(passport.initialize());
 
 // Passport config
 require("./config/passport")(passport);
+
+//run the expiry date checker scheduler
+scheduler.start();
 
 // Routes
 app.use("/api/users", users);

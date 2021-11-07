@@ -23,7 +23,7 @@ function ItemList() {
     }, []);
 
     return (
-        <main className="ItemList ">
+        <main className="ItemList row justify-content-between">
             {items.length === 0 ? (
                 <p className="alert alert-info" 
                     role="alert"

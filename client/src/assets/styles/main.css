@@ -1,0 +1,40 @@
+.bg-primary, .btn-prime {
+  background-color: #5F1D44 !important;
+  color: white;
+}
+
+.bg-secondary, .btn-second {
+  background-color: #FFFBDA !important;
+  color: black;
+}
+
+.text-primary {
+  color: #5F1D44 !important;
+}
+
+.text-secondary {
+  color: #FFFBDA !important;
+}
+
+.btn-prime:hover {
+  background-color: #41152f;
+}
+
+.btn-second:hover {
+  background-color: #d6ce89;
+}
+
+.fs-md {
+  font-size: 1.2rem;
+}
+
+.mt-lg-7 {
+  margin-top: 7em;
+}
+
+@media screen and (max-width: 1000px) {
+  .mt-lg-7 {
+    margin-top: 2em;
+  }
+}
+/*# sourceMappingURL=main.css.map */

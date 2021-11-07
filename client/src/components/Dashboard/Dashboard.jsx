@@ -3,8 +3,7 @@ import { AuthContext } from '../Context/AuthContext';
 import ItemList from './ItemList';
 
 function Dashboard() {
-    const { user, isAuthenticated } = useContext(AuthContext);
-    console.log(isAuthenticated);
+    const { user } = useContext(AuthContext);
     
     return (
         <main className="Dashboard container text-center mt-lg-4 py-3">
