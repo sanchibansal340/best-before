@@ -15,8 +15,6 @@ function App() {
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/signup" component={Signup} />
                 <PrivateRoute exact path="/dashboard" component={Dashboard} />
-
-                {/* Todo: Make addItem route private */}
                 <Route exact path="/addItem" component={AddItem} />
               </Switch>
             </AuthContextProvider>

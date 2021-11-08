@@ -1,22 +1,45 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import ItemList from './ItemList';
 
-function SearchBar({ searchQuery, setSearchQuery }) {
+function SearchBar() {
+    const [search, setSearch] = useState("");
+    const [items, setItems] = useState([]);
+
+    // Fetch all items
+    useEffect(() => {
+        async function fetchItems() {
+            const res = await fetch('http://localhost:5000/api/items/', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': localStorage.getItem('token')
+                },
+            });
+
+            const data = await res.json();
+            setItems(data.items);
+        }
+
+        fetchItems();
+    }, []);
+
+    let filteredItems = search.length === 0 ? items : items.filter(item => item.itemName.toLowerCase().includes(search.toLowerCase()))
+    if(filteredItems.length === 0) {
+        filteredItems = items;
+    }
+
     return (
         <main className="SearchBar">
-            <form action="/" method="get">
-                <label htmlFor="header-search">
-                    <span className="visually-hidden">Search blog posts</span>
-                </label>
+            <form className="mb-4">
                 <input
-                    value={searchQuery}
-                    onInput={e => setSearchQuery(e.target.value)}
+                    value={search}
+                    onInput={e => setSearch(e.target.value)}
                     type="text"
-                    id="header-search"
-                    placeholder="Search blog posts"
-                    name="s"
+                    placeholder="Search all items"
+                    className="w-100 py-2"
                 />
-                <button type="submit">Search</button>
             </form>
+            <ItemList items={filteredItems} setItems={setItems} />
         </main>
     )
 }

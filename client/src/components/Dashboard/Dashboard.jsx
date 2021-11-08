@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { AuthContext } from '../Context/AuthContext';
-import ItemList from './ItemList';
+import SearchBar from './SearchBar';
 
 function Dashboard() {
     const { user } = useContext(AuthContext);
@@ -13,11 +13,11 @@ function Dashboard() {
                 </h4>
                 <a href="/addItem" 
                     role="button" 
-                    className="btn btn-lg btn-prime mb-5"
+                    className="btn btn-lg btn-prime mb-3"
                 >
                     Add More Items
                 </a>
-                <ItemList />
+                <SearchBar />
             </section>
         </main>
     )

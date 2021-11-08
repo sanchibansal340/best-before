@@ -8,16 +8,6 @@ const app = express();
 
 const scheduler = require("./scheduler");
 
-// const CronJob = require('cron').CronJob;
-// const moment = require('moment');  
-// const notification = require('./workers/notifications');
-
-// const schedulerTimer = new CronJob('30 2 * * *', function() {
-//         console.log('Running Send Notifications Worker ' + new Date().toDateString());
-//         notification.run();
-//       }, null, true, '');
-// schedulerTimer.start();
-
 // CORS middleware
 app.use(cors());
 
@@ -29,11 +19,17 @@ app.use(express.urlencoded({ extended: true }));
 const db = require("./config/keys").mongoURI;
 
 // Connect to MongoDB
-const port = process.env.PORT || 5000; 
+const port = process.env.PORT || 5000;
 
-mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => app.listen(port, () => console.log(`Server up and running on port ${port}!`)))
-  .catch(err => console.log(err));
+// Accessing the path module
+const path = require("path");
+
+// Step 1:
+app.use(express.static(path.resolve(__dirname, "./client/build")));
+// Step 2:
+app.get("*", function (request, response) {
+  response.sendFile(path.resolve(__dirname, "./client/build", "index.html"));
+});
 
 // Passport middleware
 app.use(passport.initialize());
@@ -47,3 +43,7 @@ scheduler.start();
 // Routes
 app.use("/api/users", users);
 app.use("/api/items", items);
+
+mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => app.listen(port, () => console.log(`Server up and running on port ${port}!`)))
+  .catch(err => console.log(err));

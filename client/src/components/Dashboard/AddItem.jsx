@@ -43,7 +43,7 @@ function AddItem() {
 
     return (
         <main className="AddItem container">
-            <Link to="/dashboard" className="btn mb-3">
+            <Link to="/dashboard" className="btn mb-2">
                 <i className="fas fa-long-arrow-alt-left"></i> 
                 {' '} 
                 Back to Dashboard

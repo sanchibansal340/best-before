@@ -44,9 +44,17 @@ router.post("/create", passport.authenticate("jwt", { session: false }), (req, r
 router.delete("/delete/:id", passport.authenticate("jwt", { session: false }),
    (req, res) => {
       Item.findOneAndDelete({ _id: req.params.id })
-         .then(doc => {res.status(200).json(doc); res.redirect("/dashboard")})
+         .then(doc => {
+            User.findOneAndUpdate({_id: req.user._id}, {
+               $pull: {items: req.params.id }}, (err, data) => {
+                  if (err) {
+                     return res.status(500).json({ error: 'error in deleting item' });
+                 }
+                 res.status(200).json(doc);
+             })
+         })
          .catch(err =>
-            res.status(400).json("Error deleting a blog")
+            res.status(400).json("Error deleting an item")
          );
    }
 );

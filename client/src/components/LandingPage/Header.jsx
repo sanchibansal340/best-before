@@ -15,7 +15,7 @@ function Header() {
 
     return (
         <nav className="Header navbar navbar-light container py-3 ps-4">
-            <h3 className="fst-italic">best before</h3>
+            <h3 className="fst-italic fw-bold">best before</h3>
             {isAuthenticated ? (
                 <button onClick={logoutUser} type="reset" className="btn btn-prime">
                     Log Out
