@@ -8,7 +8,7 @@ function ItemList({ items, setItems }) {
     async function handleDelete(item) {
         const id = item._id;
 
-        await fetch(`/api/items/delete/${id}`, {
+        await fetch(`http://localhost:5000/api/items/delete/${id}`, {
             method: 'DELETE',
             headers: {
                 'Authorization': localStorage.getItem('token')

@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import ItemList from './ItemList';
 
@@ -7,20 +8,14 @@ function SearchBar() {
 
     // Fetch all items
     useEffect(() => {
-        async function fetchItems() {
-            const res = await fetch('http://localhost:5000/api/items/', {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': localStorage.getItem('token')
-                },
-            });
-
-            const data = await res.json();
-            setItems(data.items);
+        const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': localStorage.getItem('token')
         }
 
-        fetchItems();
+        axios.get('http://localhost:5000/api/items/', {headers})
+            .then(response => setItems(response.data.items))
+            .catch(err => console.log(err));    
     }, []);
 
     let filteredItems = search.length === 0 ? items : items.filter(item => item.itemName.toLowerCase().includes(search.toLowerCase()))
