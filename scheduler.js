@@ -5,7 +5,7 @@ const notification = require('./workers/notifications');
 const schedulerTimer = function() {
   return {
     start: function() {
-      new CronJob('30 6 * * *', function() {
+      new CronJob('30 8 * * *', function() {
         console.log('Running Send Notifications Worker for ' + moment().format());
         notification.run();
       }, null, true, '');
